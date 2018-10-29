@@ -4,8 +4,21 @@
     <head>
         <title>{{ the_title }}</title>
         <link rel="stylesheet" href="static/styles.css" />
+<style>
+#navbar {
+    height: 64px;
+    background: rgb(38, 139, 210);
+    color: white;
+}
+</style>
     </head>
     <body>
+        <div id="navbar">
+            <div>Znote</div>
+            {% if user %}<div id="user-menu" class="nav-rightside">Hello, {{ user }}.</div>
+            {% else %}<div id="anon-menu" class="nav-rigthside"><a href="/login">Login</a></div>
+            {% endif %}
+        </div>    
         {% block body %}
 
         {% endblock %}
