@@ -1,4 +1,6 @@
 import pymongo
+import datetime
+
 
 # to seed the database, insert into collections
 def seedDatabase():
@@ -8,15 +10,18 @@ def seedDatabase():
 # to insert into collections, create the collectio
 def seedUsers():
     users = getCollections('users')
-    users.insert([
+    users.insert_one(
             { 'email': 'foo@bar.io',
               'pw': 'youshallnotpassword',
-              'notes': [], 
-            }])
+              'notes': [],})
 
 def seedNotes():
-    #TODO
-    pass
+    notes = getCollections('notes')
+    notes.insert_one(
+            {'title': 'null',
+            'content': 'this is a null note that belongs to no one',
+            'ts': datetime.datetime.utcnow()},
+            )
 
 # to create collections, call on db
 def getCollections(name):
@@ -30,7 +35,7 @@ def getDb(name='znote'):
     return pymongo.database.Database(client, name)
 
 def createClient(uri='localhost', port=27017):
-    return MongoClient(uri, port)
+    return pymongo.MongoClient(uri, port)
 
 
 if __name__ == '__main__':
